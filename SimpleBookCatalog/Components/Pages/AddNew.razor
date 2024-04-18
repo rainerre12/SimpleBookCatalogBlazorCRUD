@@ -1,0 +1,96 @@
+﻿@page "/add-new"
+@inject IBookRepository Repository
+@inject NavigationManager Navigation
+
+<PageTitle>
+    Add new Book
+</PageTitle>
+
+<div class="row justify-content-center">
+    <div class="col-6">
+      @*   <EditForm Enhance="true" method="post" FormName="AddBookForm" OnValidSubmit="AddBook" Model="Book" autocomplete="off">
+           <h3>
+               Add New Book
+           </h3>
+
+           <div class="mb-3">
+               
+               <label for="title" class="form-label">
+                   Title
+               </label>
+               <InputText id="title" @bind-Value="Book.Title" class="form-control shadow-none" />
+
+           </div>
+
+            <div class="mb-3">
+
+                <label for="author" class="form-label">
+                    Author
+                </label>
+                <InputText id="author" @bind-Value="Book.Author" class="form-control shadow-none" />
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="publication-date" class="form-label">
+                    Date Published
+                </label>
+                <InputDate id="publication-date" @bind-Value="Book.PublicationDate" class="form-control shadow-none" />
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="category" class="form-label">
+                    Category
+                </label>
+                <InputSelect id="category" @bind-Value="Book.Category" class="form-control shadow-none"> 
+                    <option value="0">
+                        Select Category
+                    </option>
+                    @foreach(var category in Enum.GetValues(typeof(Category)))
+                    {
+                        <option value="@category">
+                            @category.ToString()
+                        </option>
+                    }
+                </InputSelect>
+
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary shadow-none">
+                    Submit
+                </button>
+                <a href="/" class="btn btn-secondary shadow-none ms-3"> 
+                    Back to List
+                </a>
+            </div>
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+           </EditForm> *@
+
+
+           <BookForm isEditMode="false" OnValidBookSubmit="AddBook"/>
+    </div>
+</div>
+
+@code {
+    // [SupplyParameterFromForm]
+    // public Book Book { get; set; } = new();
+
+    // private async Task AddBook()
+    // {
+    //     await Repository.AddAsync(Book);
+    //     Navigation.NavigateTo("/");
+    // }
+
+    private async Task AddBook(Book book)
+    {
+        await Repository.AddAsync(book);
+        Navigation.NavigateTo("/");
+    }
+}
+
+
+@* use data-enchance-nav = "false" in the <a> if you want to refresh the page when navigating *@
